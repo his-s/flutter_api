@@ -10,11 +10,9 @@ class ServerCubit extends Cubit<ServerState> {
   late Server serverData;
   late List<Member> members;
   ServerCubit(this.serverRepo) : super(ServerInitial());
-  Server getAllServerData() {
-    serverRepo.getServerAllData().then((serverData) {
-      emit(ServerDataLoaded(serverData));
-      this.serverData = serverData;
-    });
+  Future<Server> getAllServerData() async {
+    serverData = await serverRepo.getServerAllData();
+    emit(ServerDataLoaded(serverData));
     return serverData;
   }
 }

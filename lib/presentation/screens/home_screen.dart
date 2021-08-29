@@ -25,14 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         if (state is ServerDataLoaded) {
           serverData = state.serverData;
-
           return Scaffold(
             appBar: AppBar(
               title: Text(serverData.name),
             ),
             body: Container(
               child: Column(
-                children: [],
+                children: serverData.members?.map((m) => Text(m.userName.toString())).toList() ?? [],
               ),
             ),
           );

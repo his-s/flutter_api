@@ -2,13 +2,16 @@ class Server {
   late String id;
   late String name;
   late List<dynamic> channels;
-  late List<dynamic> members;
+  List<Member>? members;
   late int presenceCount;
   Server.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     name = json["name"];
     channels = json["channels"];
-    members = json["channels"];
+    members = json["members"].map((m) {
+      return Member.fromJson(m);
+    }).toList().cast<Member>();
+
     presenceCount = json["presence_count"];
   }
 }
@@ -20,14 +23,12 @@ class Member {
 
   late String status;
   late String avatarUrl;
-  late Map game;
   Member.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    userName = json["username"];
-    discriminator = json["discriminator"];
-    status = json["status"];
-    avatarUrl = json["avatar_url"];
-    game = json["game"];
+      id = json["id"];
+      userName = json["username"];
+      discriminator = json["discriminator"];
+      status = json["status"];
+      avatarUrl = json["avatar_url"];
   }
 }
 
