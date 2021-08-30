@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api/data/models/server_model.dart';
 import 'package:flutter_api/logic/cubit/server_cubit.dart';
+import 'package:flutter_api/presentation/widgets/channels.dart';
+import 'package:flutter_api/presentation/widgets/online_members.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<ServerCubit>(context).getAllServerData();
-    setState(() {});
   }
 
   @override
@@ -31,12 +32,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             body: Container(
               child: Column(
-                children: serverData.members?.map((m) => Text(m.userName.toString())).toList() ?? [],
+                children: [
+                  OnlineMembers(serverData.members),
+                  ListTile(
+                    title: Text("Channels "),
+                  ),
+                  Channels(channels: serverData.channels),
+                ],
               ),
             ),
           );
         }
         return Scaffold(
+          appBar: AppBar(),
           body: Center(
             child: CircularProgressIndicator(),
           ),

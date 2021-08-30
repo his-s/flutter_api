@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => ServerCubit(serverRepo),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: HomeScreen(),
       ),
     );
